@@ -124,4 +124,27 @@ class PostController extends Controller
     // Return response
     return new PostResource(true, 'Data Post Berhasil Diubah!', $post);
   }
+
+  /**
+   * destroy
+   *
+   * @param  mixed $post
+   * @return void
+   */
+  public function destroy(Post $post)
+  {
+    // Check old image and delete it
+    if ($post->image) {
+      $old_image = $post->image;
+      $fileName = substr($old_image, strrpos($old_image, '/') + 1);
+      $publicId = substr($fileName, 0, strrpos($fileName, '.'));
+      Cloudinary::destroy($publicId);
+    }
+
+    // Delete post
+    $post->delete();
+
+    // Return response
+    return new PostResource(true, 'Data Post Berhasil Dihapus!', null);
+  }
 }
