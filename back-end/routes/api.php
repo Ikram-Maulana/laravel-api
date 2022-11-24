@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 // Posts
 Route::apiResource('/posts', App\Http\Controllers\Api\PostController::class);
+/**
+ * route "/register"
+ * @method "POST"
+ */
+Route::post('/register', App\Http\Controllers\Api\RegisterController::class)->name('register');
