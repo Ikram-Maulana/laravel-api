@@ -30,8 +30,11 @@ class LoginController extends Controller
     //get credentials from request
     $credentials = $request->only('email', 'password');
 
+    // Token
+    $token = auth()->guard('api')->attempt($credentials);
+
     //if auth failed
-    if (!$token = auth()->guard('api')->attempt($credentials)) {
+    if (!$token) {
       return response()->json([
         'success' => false,
         'message' => 'Email atau Password Anda salah'
