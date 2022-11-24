@@ -1,6 +1,7 @@
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import Layout from "../../components/layout";
 
@@ -19,6 +20,26 @@ export const getStaticProps = async () => {
 
 export default function PostIndex(props) {
   const { posts } = props;
+
+  //router
+  const router = useRouter();
+  const path = usePathname();
+
+  // Refresh data
+  const refreshData = () => {
+    router.replace(path);
+  };
+
+  //function "deletePost"
+  const deletePost = async (id) => {
+    //sending
+    await axios.delete(
+      `${process.env.NEXT_PUBLIC_API_BACKEND}/api/posts/${id}`
+    );
+
+    //refresh data
+    refreshData();
+  };
 
   return (
     <Layout>
@@ -53,6 +74,7 @@ export default function PostIndex(props) {
                             className="rounded-3"
                             alt={post.title}
                             unoptimized
+                            priority
                           />
                         </td>
                         <td>{post.title}</td>
@@ -63,7 +85,10 @@ export default function PostIndex(props) {
                               EDIT
                             </button>
                           </Link>
-                          <button className="btn btn-sm btn-danger border-0 shadow-sm mb-3">
+                          <button
+                            onClick={() => deletePost(post.id)}
+                            className="btn btn-sm btn-danger border-0 shadow-sm mb-3"
+                          >
                             DELETE
                           </button>
                         </td>
