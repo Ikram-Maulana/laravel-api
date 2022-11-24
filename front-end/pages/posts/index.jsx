@@ -58,9 +58,11 @@ export default function PostIndex(props) {
                         <td>{post.title}</td>
                         <td>{post.content}</td>
                         <td className="text-center">
-                          <button className="btn btn-sm btn-primary border-0 shadow-sm mb-3 me-3">
-                            EDIT
-                          </button>
+                          <Link href={`/posts/edit/${post.id}`}>
+                            <button className="btn btn-sm btn-primary border-0 shadow-sm mb-3 me-3">
+                              EDIT
+                            </button>
+                          </Link>
                           <button className="btn btn-sm btn-danger border-0 shadow-sm mb-3">
                             DELETE
                           </button>
