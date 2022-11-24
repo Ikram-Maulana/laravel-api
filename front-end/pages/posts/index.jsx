@@ -1,22 +1,10 @@
 import axios from "axios";
-import { GetStaticProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import Layout from "../../components/layout";
 
-type PageProps = {
-  posts: {
-    id: number;
-    image: string;
-    title: string;
-    content: string;
-    created_at: string;
-    updated_at: string;
-  }[];
-};
-
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps = async () => {
   const req = await axios.get(
     `${process.env.NEXT_PUBLIC_API_BACKEND}/api/posts`
   );
@@ -29,7 +17,7 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-export default function PostIndex(props: PageProps) {
+export default function PostIndex(props) {
   const { posts } = props;
 
   return (
@@ -64,6 +52,7 @@ export default function PostIndex(props: PageProps) {
                             height="150"
                             className="rounded-3"
                             alt={post.title}
+                            unoptimized
                           />
                         </td>
                         <td>{post.title}</td>

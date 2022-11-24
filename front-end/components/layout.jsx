@@ -1,11 +1,7 @@
 import React from "react";
 import Navbar from "./Navbar";
 
-type PageProps = {
-  children: React.ReactNode;
-};
-
-export default function Layout({ children }: PageProps) {
+export default function Layout({ children }) {
   return (
     <>
       <Navbar />
