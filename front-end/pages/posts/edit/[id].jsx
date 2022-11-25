@@ -6,16 +6,16 @@ import Head from "next/head";
 
 //fetch with "getServerSideProps"
 export async function getServerSideProps({ params }) {
-  //http request
-  const req = await axios.get(
+  const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_BACKEND}/api/posts/${params.id}`
   );
-  const res = await req.data.data;
+  const data = await response.json();
 
   return {
     props: {
-      post: res, // <-- assign response
+      posts: data.data.data,
     },
+    revalidate: 30,
   };
 }
 
@@ -64,20 +64,26 @@ export default function PostEdit(props) {
     formData.append("content", content);
     formData.append("_method", "PUT");
 
-    //send data to server
-    await axios
-      .post(
-        `${process.env.NEXT_PUBLIC_API_BACKEND}/api/posts/${post.id}`,
-        formData
-      )
-      .then(() => {
-        //redirect
-        router.push("/posts");
-      })
-      .catch((error) => {
-        //assign validation on state
-        setValidation(error.response.data);
-      });
+    //send data to server using fetch
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BACKEND}/api/posts/${post.id}`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+
+    //get response data
+    const data = await response.json();
+
+    //check response
+    if (data.status === "success") {
+      //redirect to dashboard
+      router.push("/dashboard");
+    } else {
+      //assign error to state "validation"
+      setValidation(data.data);
+    }
   };
 
   return (
