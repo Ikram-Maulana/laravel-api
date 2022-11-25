@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Layout from "../../../components/layout";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Head from "next/head";
 
 export default function PostCreate() {
   // Router
@@ -59,6 +60,10 @@ export default function PostCreate() {
 
   return (
     <Layout>
+      <Head>
+        <title>Create Post - Ikram Web</title>
+      </Head>
+
       <div className="container" style={{ marginTop: "80px" }}>
         <div className="row">
           <div className="col-md-12">
