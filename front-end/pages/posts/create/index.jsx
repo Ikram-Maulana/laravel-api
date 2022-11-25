@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Layout from "../../../components/layout";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import Head from "next/head";
 
@@ -45,17 +44,26 @@ export default function PostCreate() {
     formData.append("title", title);
     formData.append("content", content);
 
-    //send data to server
-    await axios
-      .post(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/posts`, formData)
-      .then(() => {
-        //redirect
-        router.push("/posts");
-      })
-      .catch((error) => {
-        //assign validation on state
-        setValidation(error.response.data);
-      });
+    //send data to server using fetch
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BACKEND}/api/posts`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+
+    //get response data
+    const data = await response.json();
+
+    //check response
+    if (data.status === "success") {
+      //redirect to dashboard
+      router.push("/dashboard");
+    } else {
+      //assign error to state "validation"
+      setValidation(data.data);
+    }
   };
 
   return (
