@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Layout from "../components/Layout";
+import Layout from "../components/layout";
 import { useRouter } from "next/navigation";
 import Head from "next/head";
 import { parseCookies } from "nookies";
