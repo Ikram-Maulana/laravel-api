@@ -57,12 +57,11 @@ export default function PostCreate() {
     const data = await response.json();
 
     //check response
-    if (data.status === "success") {
+    if (data.success) {
       //redirect to dashboard
-      router.push("/dashboard");
+      router.push("/posts");
     } else {
-      //assign error to state "validation"
-      setValidation(data.data);
+      console.log(data);
     }
   };
 
