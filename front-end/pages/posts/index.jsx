@@ -7,14 +7,14 @@ import React from "react";
 import Layout from "../../components/layout";
 
 export const getStaticProps = async () => {
-  const req = await axios.get(
+  const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_BACKEND}/api/posts`
   );
-  const res = req.data.data.data;
+  const data = await response.json();
 
   return {
     props: {
-      posts: res,
+      posts: data.data.data,
     },
   };
 };
