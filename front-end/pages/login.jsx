@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { parseCookies, setCookie } from "nookies";
 import { useRouter } from "next/navigation";
-import Layout from "../components/Layout";
+import Layout from "../components/layout";
 import Head from "next/head";
 import axios from "axios";
 

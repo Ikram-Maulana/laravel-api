@@ -2,7 +2,7 @@ import axios from "axios";
 import Head from "next/head";
 import { destroyCookie, parseCookies } from "nookies";
 import React, { useEffect, useState } from "react";
-import Layout from "../../components/Layout";
+import Layout from "../../components/layout";
 import { useRouter } from "next/navigation";
 
 export default function DashboardPage() {
