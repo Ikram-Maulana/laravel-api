@@ -1,8 +1,9 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import { useRouter } from "next/navigation";
 import Head from "next/head";
+import { parseCookies } from "nookies";
 
 export default function Register() {
   // Router
@@ -42,6 +43,17 @@ export default function Register() {
         setValidation(error.response.data);
       });
   };
+
+  //hook useEffect
+  useEffect(() => {
+    const cookies = parseCookies();
+
+    //check token
+    if (cookies.token) {
+      //redirect to dashboard
+      router.push("/dashboard");
+    }
+  }, []);
 
   return (
     <Layout>
