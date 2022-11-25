@@ -1,4 +1,5 @@
 import axios from "axios";
+import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -43,6 +44,10 @@ export default function PostIndex(props) {
 
   return (
     <Layout>
+      <Head>
+        <title>Posts - Ikram Web</title>
+      </Head>
+
       <div className="container" style={{ marginTop: "80px" }}>
         <div className="row">
           <div className="col-md-12">
