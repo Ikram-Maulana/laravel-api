@@ -1,8 +1,8 @@
-import axios from "axios";
 import React, { useState } from "react";
 import Layout from "../../../components/layout";
 import { useRouter } from "next/navigation";
 import Head from "next/head";
+import axios from "axios";
 
 //fetch with "getServerSideProps"
 export async function getServerSideProps({ params }) {
@@ -10,12 +10,12 @@ export async function getServerSideProps({ params }) {
     `${process.env.NEXT_PUBLIC_API_BACKEND}/api/posts/${params.id}`
   );
   const data = await response.json();
+  console.log(data.data);
 
   return {
     props: {
-      posts: data.data.data,
+      post: data.data,
     },
-    revalidate: 30,
   };
 }
 
@@ -64,26 +64,20 @@ export default function PostEdit(props) {
     formData.append("content", content);
     formData.append("_method", "PUT");
 
-    //send data to server using fetch
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BACKEND}/api/posts/${post.id}`,
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
-
-    //get response data
-    const data = await response.json();
-
-    //check response
-    if (data.status === "success") {
-      //redirect to dashboard
-      router.push("/dashboard");
-    } else {
-      //assign error to state "validation"
-      setValidation(data.data);
-    }
+    //send data to server
+    await axios
+      .post(
+        `${process.env.NEXT_PUBLIC_API_BACKEND}/api/posts/${post.id}`,
+        formData
+      )
+      .then(() => {
+        //redirect
+        router.push("/posts");
+      })
+      .catch((error) => {
+        //assign validation on state
+        setValidation(error.response.data);
+      });
   };
 
   return (

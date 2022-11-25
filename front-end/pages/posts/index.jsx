@@ -35,9 +35,9 @@ export default function PostIndex(props) {
   //function "deletePost"
   const deletePost = async (id) => {
     //sending using fetch
-    await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/posts/${id}`, {
-      method: "DELETE",
-    });
+    await axios.delete(
+      `${process.env.NEXT_PUBLIC_API_BACKEND}/api/posts/${id}`
+    );
 
     //refresh data
     refreshData();
