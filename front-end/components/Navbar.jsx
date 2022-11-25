@@ -28,17 +28,24 @@ export default function Navbar() {
                 </Link>
               </li>
             </ul>
-            <form className="d-flex">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button className="btn btn-success" type="submit">
-                Search
-              </button>
-            </form>
+            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <Link
+                  href="/register"
+                  className="nav-link btn btn-primary btn-sm text-white shadow border-0 me-3"
+                >
+                  REGISTER
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  href="/login"
+                  className="nav-link btn btn-success btn-sm text-white shadow border-0"
+                >
+                  LOGIN
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
       </nav>

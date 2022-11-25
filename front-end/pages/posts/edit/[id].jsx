@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import Layout from "../../../components/layout";
 import { useRouter } from "next/navigation";
+import Head from "next/head";
 
 //fetch with "getServerSideProps"
 export async function getServerSideProps({ params }) {
@@ -81,6 +82,10 @@ export default function PostEdit(props) {
 
   return (
     <Layout>
+      <Head>
+        <title>Edit Post - Ikram Web</title>
+      </Head>
+
       <div className="container" style={{ marginTop: "80px" }}>
         <div className="row">
           <div className="col-md-12">
